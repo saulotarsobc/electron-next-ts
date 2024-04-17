@@ -1,76 +1,34 @@
-name: launch-app
+name: Build/release
 
-on:
-  push:
-    branches:
-    - master
+on: push
 
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
 jobs:
-  build-ubuntu:
-    runs-on: [ubuntu-latest]
+  release:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, windows-latest]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+    - name: Check out Git repository
+      uses: actions/checkout@v1
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+    - name: Install Node.js, NPM and Yarn
+      uses: actions/setup-node@v1
       with:
         node-version: 20
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build Electron App
-      run: npm run dist
-
-    - name: Release Electron App
-      run: npm run release
-
-  build-windows:
-    runs-on: [windows-latest]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
+    - name: Build/release Electron app
+      uses: samuelmeuli/action-electron-builder@v1
       with:
-        node-version: 20
+        # GitHub token, automatically provided to the action
+        # (No need to define this secret in the repo settings)
+        github_token: ${{ secrets.github_token }}
 
-    - name: Install dependencies
-      run: npm install
-
-    - name: Build Electron App
-      run: npm run dist
-
-    - name: Release Electron App
-      run: npm run release
-
-  build-mac:
-    runs-on: [macos-12]
-
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 20
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Install dmg-license lib
-      run: npm install dmg-license
-
-    - name: Build Electron App
-      run: npm run dist
-
-    - name: Release Electron App
-      run: npm run release
+        # If the commit is tagged with a version (e.g. "v1.0.0"),
+        # release the app after building
+        release: ${{ startsWith(github.ref, 'refs/tags/v') }}
