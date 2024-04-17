@@ -1,6 +1,6 @@
 {
   "name": "sc-next-electron",
-  "version": "5.0.2",
+  "version": "5.0.3",
   "description": "Electronjs com Nextjs",
   "icon": "build/icon.png",
   "private": false,
