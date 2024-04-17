@@ -1,10 +1,10 @@
 import { IpcRenderer } from "electron";
 
 declare global {
-  namespace NodeJS {
-    interface Global {
-      ipcRenderer: IpcRenderer;
-      API: any;
+    namespace NodeJS {
+        interface Global {
+            ipcRenderer: IpcRenderer;
+            API: any;
+        }
     }
-  }
 }

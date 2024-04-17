@@ -1,26 +1,14 @@
 import Link from "next/link";
 import React from "react";
 
-export default function Header() {
-  const links = [
-    { content: "Sequelize", href: "/" },
-    { content: "File System", href: "/page2" },
-    { content: "Mantine Design", href: "/login" },
-  ];
-
+const Header = () => {
   return (
     <header>
-      <nav>
-        {links.map(({ content, href }, index) => (
-          <Link
-            key={index}
-            className="underline text-blue-700 mr-2"
-            href={href}
-          >
-            {content}
-          </Link>
-        ))}
-      </nav>
+      <Link href={"/"}>Ir para home</Link>
+      <br />
+      <Link href={"page2"}>Ir para Pagina 2</Link>
     </header>
   );
-}
+};
+
+export default Header;

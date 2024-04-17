@@ -1,0 +1,31 @@
+productName: SC - Next Electron
+appId: br.com.electron.next
+asar: true
+
+extraMetadata:
+  main: main/index.js
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+files:
+- main
+- frontend/out
+
+# Windows
+win:
+  target:
+  - nsis
+  # - msi
+  # - portable
+  icon: ./build/icon.png
+  publish:
+  - provider: github
+  publisherName: Saulo INC
+  artifactName: ${productName}-Setup-${version}.${ext}
+
+# Mac
+mac:
+  target: dmg
+  icon: ./build/icon.png

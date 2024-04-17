@@ -1,33 +1,16 @@
-import React, { useState } from "react";
+import Header from "@/components/Header";
+import { Inter } from "next/font/google";
 
-export default function page2() {
-  const [Files, setFiles] = useState([]);
+const inter = Inter({ subsets: ["latin"] });
 
-  const chooseFiles = () => {
-    const { canceled, filePaths } = global.api.sys.chooseFiles();
-    !canceled ? setFiles(filePaths) : null;
-    console.log(filePaths);
-  };
-
+export default function Home() {
   return (
-    <>
-      <div>
-        <h1>Arquivos</h1>
+    <main
+      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+    >
+      <Header />
 
-        <h2>Integração com sistema de arquivos</h2>
-
-        <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          onClick={chooseFiles}
-        >
-          Escolher arquivos
-        </button>
-        <hr />
-        {Files.map((file: string, index) => (
-          <pre key={index}>{file}</pre>
-        ))}
-        <hr />
-      </div>
-    </>
+      <h1>PAGINA 2</h1>
+    </main>
   );
 }

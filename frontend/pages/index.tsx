@@ -1,11 +1,18 @@
+import Header from "@/components/Header";
+import { Inter } from "next/font/google";
 import { useState } from "react";
 
-export default function Index() {
-  const [Users, setUsers] = useState([]);
+const inter = Inter({ subsets: ["latin"] });
 
+export default function Home() {
+  const [Users, setUsers] = useState([]);
   return (
-    <main>
-      <h1>Home</h1>
+    <main
+      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+    >
+      <Header />
+
+      <h1 className="bg-yellow-200 p-5 rounded-lg">PAGINA HOME</h1>
 
       <h2>Integração com Sequelize</h2>
 

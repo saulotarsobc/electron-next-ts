@@ -1,77 +1,50 @@
-// Native
-import { join } from "path";
-import { format } from "url";
+import { ipcMain, IpcMainEvent } from 'electron/main'
+import { app, BrowserWindow } from 'electron/main'
+import path, { join } from 'node:path'
 
-// Packages
-import prepareNext from "electron-next";
+import { isDev } from './utils/env'
+import { prepareNext } from './utils/prepareNext';
+import { sequelize, User } from './model';
 
-// Modules
-import { BrowserWindow, app, ipcMain, IpcMainEvent, dialog } from "electron";
-import { getWinSettings, setWinSettings } from "./store";
-import { User } from "./models";
-
-const isDev = process.argv.some((str) => str == "--dev");
-const isStart = process.argv.some((str) => str == "--start");
-
-const createWindow = () => {
-  const winSize = getWinSettings();
-
-  const mainWindow = new BrowserWindow({
-    height: winSize.h,
-    width: winSize.w,
-    minHeight: 500,
-    minWidth: 400,
+function createWindow() {
+  const win = new BrowserWindow({
+    width: 900,
+    height: 700,
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: false,
-      preload: join(__dirname, "preload.js"),
-    },
-  });
+      preload: path.join(__dirname, 'preload.js')
+    }
+  })
 
-  mainWindow.on("resize", () => {
-    setWinSettings(mainWindow.getSize());
-  });
+  isDev
+    ? win.loadURL('http://localhost:3000/')
+    : win.loadFile(join(__dirname, "..", "frontend", "out", "index.html"))
+}
 
-  mainWindow.setMenu(null);
+app.whenReady().then(async () => {
 
-  // open devtools
-  // abre o devtools se estiver em modo de desenvolvimento
-  if (isDev) mainWindow.webContents.openDevTools();
+  await prepareNext('./frontend', 3000);
 
-  mainWindow.loadURL(
-    isStart || isDev
-      ? `http://localhost:8000/`
-      : format({
-          pathname: join(__dirname, "../frontend/out/index.html"),
-          protocol: "file:",
-          slashes: true,
-        })
-  );
-};
 
-// Prepare the frontend once the app is ready
-// Prepare o frontend quando o aplicativo estiver pronto
-app.on("ready", async () => {
-  await prepareNext("./frontend");
   createWindow();
-});
 
-// Quit the app once all windows are closed
-// Saia do aplicativo quando todas as janelas estiverem fechadas
-app.on("window-all-closed", app.quit);
+  await sequelize.sync({ alter: true });
+
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') {
+    app.quit()
+  }
+})
 
 /* ++++++++++ code ++++++++++ */
-ipcMain.on("chooseFiles", (event: IpcMainEvent) => {
-  dialog
-    .showOpenDialog({ properties: ["openFile", "multiSelections"] })
-    .then((result: any) => {
-      event.returnValue = result;
-    })
-    .catch((err: Error) => {
-      event.returnValue = err.message;
-    });
-});
-
 ipcMain.on("createUser", (event: IpcMainEvent, data: {}) => {
   User.create({ ...data })
     .then((data: any) => {

@@ -1,7 +1,7 @@
 {
-  "name": "electron-typescript-next",
-  "version": "3.1.1",
-  "main": "main/index.js",
+  "name": "sc-next-electron",
+  "version": "5.0.0",
+  "description": "Electronjs com Nextjs",
   "icon": "build/icon.png",
   "description": "Aplicação ElectronJS com NextJS e typescript. #tailwindcss",
   "private": false,
@@ -9,71 +9,41 @@
   "author": {
     "name": "Saulo Costa",
     "email": "saulotarsobc@gmail.com",
-    "url": "https://github.com/saulotarsobc/electron-next-ts"
+    "url": "https://github.com/saulotarsobc"
   },
+  "license": "MIT",
+  "main": "main/index.js",
   "scripts": {
-    "dev": "npm run build-backend && electron . --dev",
-    "start": "npm run build && electron . --start",
-    "clear:install": "rimraf node_modules package-lock.json && npm install --force",
-    "clean": "rimraf dist main frontend/out frontend/.next",
+    "start": "bun run build && electron .",
+    "dev": "bun run build-backend && electron . --dev",
+    "build-backend": "tsc -p backend",
     "build-frontend": "next build frontend",
-    "build-backend": "npx tsc -p backend",
-    "build": "npm run clean && npm run build-frontend && npm run build-backend",
-    "dist": "npm run build && npx electron-builder",
-    "type-check": "npx tsc -p ./frontend/tsconfig.json && npx tsc -p ./backend/tsconfig.json",
-    "publish-win": "npx electron-builder --win -p always",
-    "publish-linux": "npx electron-builder --linux -p always",
-    "postinstall": "npx electron-builder install-app-deps",
-    "release": "npx electron-builder"
+    "postinstall": "electron-builder install-app-deps",
+    "build": "bun run build-frontend && bun run build-backend",
+    "rebuild": "electron-rebuild ",
+    "dist:w": "bun run build && electron-builder -w",
+    "dist:l": "bun run build && electron-builder -l"
   },
   "dependencies": {
-    "@mantine/core": "^7.7.1",
-    "@mantine/form": "^7.7.1",
-    "@mantine/hooks": "^7.7.1",
-    "electron-is-dev": "^2.0.0",
-    "electron-next": "^3.1.5",
-    "electron-store": "^8.2.0",
-    "next": "14.1.4",
+    "@npmcli/fs": "^3.1.0",
+    "app-root-path": "^3.1.0",
+    "electron-build": "^0.0.3",
+    "next": "^14.2.1",
     "react": "^18",
     "react-dom": "^18",
-    "sequelize": "^6.37.2",
-    "sqlite3": "^5.1.5"
+    "sequelize": "^6.37.3",
+    "sqlite3": "4"
   },
   "devDependencies": {
+    "@electron/rebuild": "^3.6.0",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "autoprefixer": "^10.0.1",
-    "electron": "^29.1.6",
+    "electron": "^30.0.0",
     "electron-builder": "^24.13.3",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "prisma": "^5.12.1",
+    "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  },
-  "build": {
-    "productName": "SC - Electron Typescript Next",
-    "appId": "electron-typescript-next",
-    "win": {
-      "publish": [
-        "github"
-      ],
-      "publisherName": "Saulo INC",
-      "target": [
-        "nsis"
-      ]
-    },
-    "mac": {
-      "target": "dmg",
-      "icon": "./build/icon.png"
-    },
-    "nsis": {
-      "oneClick": false,
-      "allowToChangeInstallationDirectory": true
-    },
-    "asar": true,
-    "files": [
-      "main",
-      "frontend/out"
-    ]
   }
 }
