@@ -19,6 +19,7 @@
     "postinstall": "electron-builder install-app-deps",
     "build": "npm run build-frontend && npm run build-backend",
     "rebuild": "electron-rebuild ",
+    "release": "npx electron-builder",
     "dist:m": "npm run build && electron-builder -m",
     "dist:l": "npm run build && electron-builder -l",
     "dist:w": "npm run build && electron-builder -w",
