@@ -3,7 +3,6 @@
   "version": "5.0.0",
   "description": "Electronjs com Nextjs",
   "icon": "build/icon.png",
-  "description": "Aplicação ElectronJS com NextJS e typescript. #tailwindcss",
   "private": false,
   "license": "MIT",
   "author": {
@@ -11,7 +10,6 @@
     "email": "saulotarsobc@gmail.com",
     "url": "https://github.com/saulotarsobc"
   },
-  "license": "MIT",
   "main": "main/index.js",
   "scripts": {
     "start": "bun run build && electron .",
