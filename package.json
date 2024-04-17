@@ -2,6 +2,10 @@
   "name": "sc-next-electron",
   "version": "5.0.0",
   "description": "Electronjs com Nextjs",
+  "icon": "build/icon.png",
+  "description": "Aplicação ElectronJS com NextJS e typescript. #tailwindcss",
+  "private": false,
+  "license": "MIT",
   "author": {
     "name": "Saulo Costa",
     "email": "saulotarsobc@gmail.com",
