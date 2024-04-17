@@ -12,15 +12,15 @@
   },
   "main": "main/index.js",
   "scripts": {
-    "start": "bun run build && electron .",
-    "dev": "bun run build-backend && electron . --dev",
+    "start": "npm run build && electron .",
+    "dev": "npm run build-backend && electron . --dev",
     "build-backend": "tsc -p backend",
     "build-frontend": "next build frontend",
     "postinstall": "electron-builder install-app-deps",
-    "build": "bun run build-frontend && bun run build-backend",
+    "build": "npm run build-frontend && npm run build-backend",
     "rebuild": "electron-rebuild ",
-    "dist:w": "bun run build && electron-builder -w",
-    "dist:l": "bun run build && electron-builder -l"
+    "dist:w": "npm run build && electron-builder -w",
+    "dist:l": "npm run build && electron-builder -l"
   },
   "dependencies": {
     "@npmcli/fs": "^3.1.0",
