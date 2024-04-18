@@ -13,6 +13,11 @@ files:
 - main
 - frontend/out
 
+publish:
+- provider: github
+
+nodeVersion: 20.12.2
+
 # Windows
 win:
   target:
@@ -20,12 +25,17 @@ win:
   # - msi
   # - portable
   icon: ./build/icon.png
-  publish:
-  - provider: github
   publisherName: Saulo INC
   artifactName: ${productName}-Setup-${version}.${ext}
 
 # Mac
 mac:
   target: dmg
+  icon: ./build/icon.png
+
+# Linux
+linux:
+  target:
+  - AppImage
+  - deb
   icon: ./build/icon.png
