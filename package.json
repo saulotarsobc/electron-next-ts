@@ -16,6 +16,7 @@
     "dev": "npm run build-backend && electron . --dev",
     "build-backend": "tsc -p backend",
     "build-frontend": "next build frontend",
+    "sign": "electron-builder create-self-signed-cert -p certificate",
     "postinstall": "electron-builder install-app-deps",
     "build": "npm run build-backend && npm run build-frontend",
     "rebuild": "electron-rebuild ",

@@ -2,6 +2,10 @@ productName: SC - Next Electron
 appId: br.com.electron.next
 asar: true
 
+directories:
+  output: dist
+  buildResources: build
+
 extraMetadata:
   main: main/index.js
 
@@ -17,16 +21,23 @@ publish:
 - provider: github
 
 nodeVersion: 20.12.2
+electronVersion: 30.0.0
 
 # Windows
 win:
   target:
   - nsis
+  asar:
+    smartUnpack: false
   # - msi
   # - portable
   icon: ./build/icon.png
   publisherName: Saulo INC
   artifactName: ${productName}-Setup-${version}.${ext}
+  signAndEditExecutable: true
+  verifyUpdateCodeSignature: true
+  signingHashAlgorithms:
+  - sha256
 
 # Mac
 mac:
