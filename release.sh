@@ -1,4 +1,4 @@
 #! bash
 npm version patch
-git tag $1
+git tag "v$1"
 git push origin --tags
