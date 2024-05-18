@@ -32,18 +32,61 @@ npm run dev;
 - [Hacking Electron Applications](https://youtu.be/jkJWA_CWrQs)
 - [Any Linux Target](https://www.electron.build/configuration/linux)
 
-### NPM Commands
 
-- **dev:** Initiates the application, first building it with `npm run build-electron` and then running it with Electron.
-- **clean:** Removes output and build directories, including `dist`, `main`, `frontend/out`, and `frontend/.next`, using the `rimraf` package.
-- **build-frontend:** Compiles frontend code using Next.js and generates build artifacts.
-- **build-electron:** Compiles backend code using TypeScript (`tsc -p backend`).
-- **build:** Executes the cleaning process (`npm run clean`) and then builds both frontend and backend.
-- **pack-app:** Packages the application for distribution, building frontend, backend, and the overall package using Electron Builder with the `--dir` option.
-- **dist:** Performs the cleaning and building process, then creates distribution artifacts using Electron Builder.
-- **type-check:** Performs type checking for TypeScript code in both frontend and backend.
-- **publish:** Publishes the application for the Windows platform using Electron Builder.
-- **publish-linux:** Publishes the application for the Linux platform using Electron Builder.
-- **postinstall:** Executes the `electron-builder install-app-deps` command after dependency installation to ensure correct application dependencies.
-- **release:** Initiates the process of creating a release package for the application using Electron Builder.
-- **libs-update:** Updates project dependencies using `ncu` (npm-check-updates) and then reinstalls dependencies using `npm install`.
+## NPM Commands
+
+- **dev:** Builds the backend and then runs the application in development mode using Electron.
+  ```json
+  "dev": "npm run build:backend && electron . --dev"
+  ```
+  - `npm run build:backend`: Compiles the backend code using TypeScript.
+  - `electron . --dev`: Starts the Electron application in development mode.
+
+- **prebuild:** Cleans up the `build` and `dist` directories before building the project.
+  ```json
+  "prebuild": "rimraf build && rimraf dist"
+  ```
+  - `rimraf build`: Removes the `build` directory.
+  - `rimraf dist`: Removes the `dist` directory.
+
+- **build:** Builds both the frontend and the backend.
+  ```json
+  "build": "npm run build:frontend && npm run build:backend"
+  ```
+  - `npm run build:frontend`: Builds the frontend using Next.js.
+  - `npm run build:backend`: Compiles the backend code using TypeScript.
+
+- **build:frontend:** Compiles the frontend using Next.js.
+  ```json
+  "build:frontend": "next build frontend"
+  ```
+
+- **build:backend:** Compiles the backend using TypeScript.
+  ```json
+  "build:backend": "tsc -p backend"
+  ```
+
+- **start:** Builds the project and then starts the Electron application.
+  ```json
+  "start": "npm run build && electron ."
+  ```
+
+- **start:electron:** Builds the backend and then starts the Electron application.
+  ```json
+  "start:electron": "npm run build:backend && electron ."
+  ```
+
+- **start:frontend:** Runs the frontend in development mode on port 4000.
+  ```json
+  "start:frontend": "next dev frontend -p 4000"
+  ```
+
+- **postinstall:** Installs the application's dependencies using `electron-builder`.
+  ```json
+  "postinstall": "electron-builder install-app-deps"
+  ```
+
+- **dist:** Builds the project and then creates distribution artifacts using `electron-builder`.
+  ```json
+  "dist": "npm run build && electron-builder"
+  ```
