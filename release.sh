@@ -1,2 +1,2 @@
 #! bash
-git push origin --tags
+npm version patch
