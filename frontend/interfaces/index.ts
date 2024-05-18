@@ -1,10 +1,7 @@
-import { IpcRenderer } from "electron";
+import { api } from "../../backend/preload";
 
 declare global {
-    namespace NodeJS {
-        interface Global {
-            ipcRenderer: IpcRenderer;
-            API: any;
-        }
-    }
+  interface Global {
+    api: typeof api;
+  }
 }

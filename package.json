@@ -1,49 +1,45 @@
 {
   "name": "sc-next-electron",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "Electronjs com Nextjs",
-  "icon": "build/icon.png",
   "private": false,
   "license": "MIT",
+  "main": "dist/index.js",
   "author": {
     "name": "Saulo Costa",
     "email": "saulotarsobc@gmail.com",
     "url": "https://github.com/saulotarsobc"
   },
-  "main": "main/index.js",
   "scripts": {
-    "start": "npm run build && electron . --start",
-    "dev": "npm run build-backend && electron . --dev",
-    "build-backend": "tsc -p backend",
-    "build-frontend": "next build frontend",
-    "sign": "electron-builder create-self-signed-cert -p certificate",
+    "dev": "npm run build:backend && electron . --dev",
+    "prebuild": "rimraf build && rimraf dist",
+    "build": "npm run build:frontend && npm run build:backend",
+    "build:frontend": "next build frontend",
+    "build:backend": "tsc -p backend",
+    "start": "npm run build && electron .",
+    "start:electron": "npm run build:backend && electron .",
+    "start:frontend": "next dev frontend -p 4000",
     "postinstall": "electron-builder install-app-deps",
-    "build": "npm run build-backend && npm run build-frontend",
-    "rebuild": "electron-rebuild ",
-    "release": "npx electron-builder",
-    "dist:m": "npm run build && electron-builder -m",
-    "dist:l": "npm run build && electron-builder -l",
-    "dist:w": "npm run build && electron-builder -w",
-    "dist": "npm run build && npx electron-builder"
+    "dist": "npm run build && electron-builder"
   },
   "dependencies": {
     "app-root-path": "^3.1.0",
-    "electron-log": "^5.1.2",
-    "next": "^14.2.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "sequelize": "^6.37.3",
-    "sqlite3": "^4.2.0"
+    "electron-log": "^5.1.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "electron": "^30.0.0",
+    "autoprefixer": "^10.4.19",
+    "electron": "^30.0.1",
     "electron-builder": "^24.13.3",
-    "postcss": "^8",
-    "prisma": "^5.12.1",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "next": "^14.2.3",
+    "postcss": "^8.4.38",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rimraf": "^5.0.5",
+    "sass": "^1.77.1",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^4.9.5"
   }
 }

@@ -1,12 +1,9 @@
-import { ipcMain, IpcMainEvent } from "electron/main";
 import { app, BrowserWindow } from "electron/main";
 import path, { join } from "node:path";
 
 import { isDev } from "./utils/env";
 import { prepareNext } from "./utils/prepareNext";
-import { sequelize, User } from "./model";
 import { initLogs } from "./utils/initLogs";
-import Logger from "electron-log";
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -27,15 +24,6 @@ function createWindow() {
 app.whenReady().then(async () => {
   await prepareNext("./frontend", 3000);
 
-  await sequelize
-    .sync({ alter: true })
-    .then(() => {
-      Logger.info("SEQUELIZE: ", "database synk. ok!");
-    })
-    .catch((e: Error) => {
-      Logger.error("SEQUELIZE ERROR: ", e.message);
-    });
-
   await initLogs();
 
   createWindow();
@@ -53,12 +41,3 @@ app.on("window-all-closed", () => {
 });
 
 /* ++++++++++ code ++++++++++ */
-ipcMain.on("createUser", (event: IpcMainEvent, data: {}) => {
-  User.create({ ...data })
-    .then((data: any) => {
-      event.returnValue = data;
-    })
-    .catch((e: Error) => {
-      event.returnValue = e.message;
-    });
-});

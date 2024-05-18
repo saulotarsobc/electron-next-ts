@@ -11,7 +11,7 @@ const devServer = async (dir: any, port: any) => {
 
   const server = createServer(requestHandler);
 
-  server.listen(port || 8000, () => {
+  server.listen(port || 4000, () => {
     app.on("before-quit", () => server.close());
   });
 };

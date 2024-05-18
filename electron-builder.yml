@@ -1,52 +1,42 @@
 productName: SC - Next Electron
 appId: br.com.electron.next
-asar: true
 
-directories:
-  output: dist
-  buildResources: build
+icon: public/icon.png
 
 extraMetadata:
-  main: main/index.js
+  main: dist/index.js
 
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
 
 files:
-- main
+- dist
 - frontend/out
+
+directories:
+  output: out
 
 publish:
 - provider: github
-
-nodeVersion: 20.12.2
-electronVersion: 30.0.0
 
 # Windows
 win:
   target:
   - nsis
   asar:
-    smartUnpack: false
-  # - msi
-  # - portable
-  icon: ./build/icon.png
+  icon: ./public/icon.png
   publisherName: Saulo INC
   artifactName: ${productName}-Setup-${version}.${ext}
-  signAndEditExecutable: true
-  verifyUpdateCodeSignature: true
-  signingHashAlgorithms:
-  - sha256
 
 # Mac
 mac:
   target: dmg
-  icon: ./build/icon.png
+  icon: ./public/icon.png
 
 # Linux
 linux:
   target:
   - AppImage
   - deb
-  icon: ./build/icon.png
+  icon: ./public/icon.png

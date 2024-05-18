@@ -1,23 +1,15 @@
-/* eslint-disable @typescript-eslint/no-namespace */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { ipcRenderer } from "electron";
+import { contextBridge, ipcRenderer, IpcRendererEvent } from "electron";
 
-declare global {
-  namespace NodeJS {
-    interface Global {
-      API: any;
-    }
-  }
-}
+export const api = {
+  on: (channel: string, callback: Function) => {
+    ipcRenderer.on(channel, (event: IpcRendererEvent, args: any) =>
+      callback(event, args)
+    );
+  },
 
-const db = {
-  createUser: (data: {}) => ipcRenderer.sendSync("createUser", data),
+  send: (channel: string, args: any) => {
+    ipcRenderer.send(channel, args);
+  },
 };
 
-const sys = {
-  chooseFiles: () => ipcRenderer.sendSync("chooseFiles"),
-};
-
-process.once("loaded", () => {
-  (global as any).api = { ipcRenderer, db, sys };
-});
+contextBridge.exposeInMainWorld("api", api);
