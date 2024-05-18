@@ -18,8 +18,8 @@
 ```sh
 git clone https://github.com/saulotarsobc/electron-next-ts.git;
 cd electron-next-ts;
-bun install;
-bun start;
+npm install;
+npm run dev;
 ```
 
 ## Help
