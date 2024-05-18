@@ -1,6 +1,6 @@
 {
   "name": "sc-next-electron",
-  "version": "5.0.4",
+  "version": "5.0.5",
   "description": "Electronjs com Nextjs",
   "private": false,
   "license": "MIT",
@@ -20,7 +20,10 @@
     "start:electron": "npm run build:backend && electron .",
     "start:frontend": "next dev frontend -p 4000",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && electron-builder"
+    "dist": "npm run build && electron-builder",
+    "version:up": "node ./scripts/newVersion",
+    "git": "npm version patch && git tag release -m release",
+    "release": "npm run version:up && npm run git"
   },
   "dependencies": {
     "app-root-path": "^3.1.0",
