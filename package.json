@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "app-root-path": "^3.1.0",
-    "electron-log": "^5.1.4"
+    "electron-log": "^5.1.5"
   },
   "devDependencies": {
     "@types/node": "^20.12.12",
