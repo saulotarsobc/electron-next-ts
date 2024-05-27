@@ -5,24 +5,31 @@ import { isDev } from "./utils/env";
 import { prepareNext } from "./utils/prepareNext";
 import { initLogs } from "./utils/initLogs";
 
-function createWindow() {
+/**
+ * Creates a new BrowserWindow with the specified dimensions and web preferences.
+ * If in development mode, the window loads the local development server URL,
+ * otherwise it loads the built frontend index.html file.
+ *
+ * @return {void}
+ */
+function createWindow(): void {
   const win = new BrowserWindow({
     width: 900,
     height: 700,
     webPreferences: {
       nodeIntegration: false,
-      contextIsolation: false,
+      contextIsolation: true,
       preload: path.join(__dirname, "preload.js"),
     },
   });
 
   isDev
-    ? win.loadURL("http://localhost:3000/")
+    ? win.loadURL("http://localhost:4444/")
     : win.loadFile(join(__dirname, "..", "frontend", "out", "index.html"));
 }
 
 app.whenReady().then(async () => {
-  await prepareNext("./frontend", 3000);
+  await prepareNext("./frontend", 4444);
 
   await initLogs();
 

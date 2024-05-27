@@ -4,7 +4,14 @@ import { app, protocol } from "electron";
 import { resolve } from "app-root-path";
 import { isDev } from "./env";
 
-const devServer = async (dir: any, port: any) => {
+/**
+ * Starts a development server for the Next.js application.
+ *
+ * @param {any} dir - The directory of the Next.js application.
+ * @param {any} port - The port number to run the development server on. Defaults to 4000 if not provided.
+ * @return {Promise<void>} A promise that resolves when the development server is started.
+ */
+const devServer = async (dir: any, port: any): Promise<void> => {
   const next = require("next")({ dev: true, dir });
   const requestHandler = next.getRequestHandler();
   await next.prepare();
@@ -16,7 +23,13 @@ const devServer = async (dir: any, port: any) => {
   });
 };
 
-const adjustRenderer = (directory: any) => {
+/**
+ * Adjusts the renderer by intercepting the file protocol and modifying the file path.
+ *
+ * @param {any} directory - The directory of the Next.js application.
+ * @return {void} This function does not return a value.
+ */
+const adjustRenderer = (directory: any): void => {
   const paths = ["/_next", "/static"];
   const isWindows = process.platform === "win32";
 
@@ -48,7 +61,18 @@ const adjustRenderer = (directory: any) => {
   });
 };
 
-export const prepareNext = async (directories: any, port: any) => {
+/**
+ * Prepares the Next.js application for rendering.
+ *
+ * @param {any} directories - The directories containing the Next.js application. Can be a string or an object with production and development properties.
+ * @param {any} port - The port number to run the development server on. Defaults to 4000 if not provided.
+ * @throws {Error} If the renderer location is not defined.
+ * @return {Promise<void>} A Promise that resolves when the Next.js application is prepared for rendering.
+ */
+export const prepareNext = async (
+  directories: any,
+  port: any
+): Promise<void> => {
   if (!directories) {
     throw new Error("Renderer location not defined");
   }

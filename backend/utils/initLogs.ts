@@ -2,7 +2,12 @@ import { exec } from "node:child_process";
 import Logger from "electron-log";
 import { join } from "node:path";
 
-export async function initLogs() {
+/**
+ * Initializes the logs by executing a command to list the files in the specified directory.
+ *
+ * @return {Promise<void>} A promise that resolves when the logs have been initialized.
+ */
+export async function initLogs(): Promise<void> {
   const directoryPath = join(__dirname, "..", "..");
   const command =
     process.platform === "win32"
