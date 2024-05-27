@@ -4,6 +4,9 @@ import path, { join } from "node:path";
 import { isDev } from "./utils/env";
 import { prepareNext } from "./utils/prepareNext";
 import { initLogs } from "./utils/initLogs";
+import { addUser, initDb } from "./database";
+import { ipcMain } from "electron";
+import { User } from "./database/schema";
 
 /**
  * Creates a new BrowserWindow with the specified dimensions and web preferences.
@@ -26,12 +29,16 @@ function createWindow(): void {
   isDev
     ? win.loadURL("http://localhost:4444/")
     : win.loadFile(join(__dirname, "..", "frontend", "out", "index.html"));
+
+  isDev && win.webContents.openDevTools();
+  isDev && win.maximize();
 }
 
 app.whenReady().then(async () => {
   await prepareNext("./frontend", 4444);
 
   await initLogs();
+  initDb();
 
   createWindow();
   app.on("activate", () => {
@@ -48,3 +55,18 @@ app.on("window-all-closed", () => {
 });
 
 /* ++++++++++ code ++++++++++ */
+ipcMain.on("addUser", (event, user: User) => {
+  addUser(user)
+    .then((data) => {
+      event.returnValue = {
+        error: false,
+        data,
+      };
+    })
+    .catch((error) => {
+      event.returnValue = {
+        error: true,
+        data: error,
+      };
+    });
+});

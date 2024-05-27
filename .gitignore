@@ -27,3 +27,5 @@ dist
 .next
 /frontend/out
 /out
+
+dev.sqlite
