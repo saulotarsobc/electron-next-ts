@@ -32,56 +32,49 @@ npm run dev;
 - [Hacking Electron Applications](https://youtu.be/jkJWA_CWrQs)
 - [Any Linux Target](https://www.electron.build/configuration/linux)
 
-
 ## NPM Commands
 
 - **dev:** Builds the backend and then runs the application in development mode using Electron.
+
   ```json
   "dev": "npm run build:backend && electron . --dev"
   ```
+
   - `npm run build:backend`: Compiles the backend code using TypeScript.
   - `electron . --dev`: Starts the Electron application in development mode.
 
 - **prebuild:** Cleans up the `build` and `dist` directories before building the project.
+
   ```json
   "prebuild": "rimraf build && rimraf dist"
   ```
+
   - `rimraf build`: Removes the `build` directory.
   - `rimraf dist`: Removes the `dist` directory.
 
 - **build:** Builds both the frontend and the backend.
+
   ```json
   "build": "npm run build:frontend && npm run build:backend"
   ```
+
   - `npm run build:frontend`: Builds the frontend using Next.js.
   - `npm run build:backend`: Compiles the backend code using TypeScript.
 
 - **build:frontend:** Compiles the frontend using Next.js.
+
   ```json
   "build:frontend": "next build frontend"
   ```
 
 - **build:backend:** Compiles the backend using TypeScript.
+
   ```json
   "build:backend": "tsc -p backend"
   ```
 
-- **start:** Builds the project and then starts the Electron application.
-  ```json
-  "start": "npm run build && electron ."
-  ```
-
-- **start:electron:** Builds the backend and then starts the Electron application.
-  ```json
-  "start:electron": "npm run build:backend && electron ."
-  ```
-
-- **start:frontend:** Runs the frontend in development mode on port 4000.
-  ```json
-  "start:frontend": "next dev frontend -p 4000"
-  ```
-
 - **postinstall:** Installs the application's dependencies using `electron-builder`.
+
   ```json
   "postinstall": "electron-builder install-app-deps"
   ```
