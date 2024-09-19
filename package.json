@@ -17,9 +17,7 @@
     "build:frontend": "next build frontend",
     "build:backend": "tsc -p backend",
     "postinstall": "electron-builder install-app-deps",
-    "dist": "npm run build && electron-builder",
-    "prisma:m": "prisma migrate dev --name dev",
-    "prisma:g": "prisma generate"
+    "dist": "npm run build && electron-builder"
   },
   "dependencies": {
     "app-root-path": "^3.1.0",
@@ -36,7 +34,6 @@
     "electron-builder": "^24.13.3",
     "next": "^14.2.3",
     "postcss": "^8.4.38",
-    "prisma": "^5.15.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^5.0.7",
