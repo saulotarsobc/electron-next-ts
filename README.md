@@ -11,7 +11,9 @@
    <img alt="Stars" src="https://img.shields.io/github/stars/saulotarsobc/electronjs-with-nextjs.svg">
 </div>
 
-![demo](/demo/demo.gif)
+<div align="center">
+  ![demo](/demo/demo.gif)
+</div>
 
 ---
 
