@@ -1,4 +1,6 @@
 import { Button, Card, Group, TextInput } from "@mantine/core";
+import { notifications } from "@mantine/notifications";
+import { IconCheck } from "@tabler/icons-react";
 import { useCallback, useState } from "react";
 
 export default function SQLite() {
@@ -6,18 +8,47 @@ export default function SQLite() {
   const [data, setData] = useState<any>([]);
 
   const addUser = useCallback(async () => {
-    const data = await global.api.sendSync("addUser", { name: user });
+    const notif = notifications.show({
+      title: "Adding user",
+      message: `Adding user ${user}...`,
+      autoClose: false,
+      loading: true,
+    });
 
-    if (data.error) {
-      console.error(data.error);
-      return;
-    } else {
-      setData(data.data);
-    }
+    setTimeout(async () => {
+      const data = await global.api.sendSync("addUser", { name: user });
+
+      if (data.eror) {
+        console.error(data.error);
+
+        notifications.update({
+          id: notif,
+          title: "Error",
+          message: data.error || "Unknown error",
+          autoClose: 3000,
+          loading: false,
+          icon: <IconCheck />,
+          color: "red",
+        });
+
+        return;
+      } else {
+        setData(data.data);
+        notifications.update({
+          id: notif,
+          title: "User added",
+          message: `User ${user} added successfully!`,
+          autoClose: 3000,
+          loading: false,
+          icon: <IconCheck />,
+          color: "green",
+        });
+      }
+    }, 1000);
   }, [user]);
 
   return (
-    <Group justify="center">
+    <Group justify="center" maw={500}>
       <Group w={"100%"} p={20} pb={0}>
         <TextInput
           label="Name"
@@ -28,11 +59,10 @@ export default function SQLite() {
           value={user}
           onChange={(e) => setUser(e.target.value)}
           w={"100%"}
-          maw={400}
         />
       </Group>
 
-      <Group w={"100%"} maw={400} p={20} pt={0}>
+      <Group w={"100%"} p={20} pt={0}>
         <Button w={"100%"} variant="outline" onClick={() => addUser()}>
           Add
         </Button>
