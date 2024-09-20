@@ -12,7 +12,7 @@
 </div>
 
 <div align="center">
-  ![demo](/demo/demo.gif)
+  <img alt="demo" src="./demo/demo.gif">
 </div>
 
 ---
