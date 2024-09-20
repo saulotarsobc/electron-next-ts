@@ -4,6 +4,7 @@ import { modals } from "@mantine/modals";
 function ModalTest() {
   const openModal = () =>
     modals.openConfirmModal({
+      centered: true,
       title: "Please confirm your action",
       children: (
         <Text size="sm">

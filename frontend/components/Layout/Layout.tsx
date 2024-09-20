@@ -69,8 +69,8 @@ export default function Layout({ children }: { children: ReactNode }) {
             label="Page Group 1"
             onClick={toggle}
             links={[
-              { label: "Page 2", link: "/page-2" },
-              { label: "Page 3", link: "/page-3" },
+              { label: "Page 2 - Modal", link: "/page-2" },
+              { label: "Page 3 - Notifcation", link: "/page-3" },
             ]}
           />
 

@@ -1,3 +1,4 @@
+import { Button, Card, Group, TextInput } from "@mantine/core";
 import { useCallback, useState } from "react";
 
 export default function SQLite() {
@@ -16,25 +17,32 @@ export default function SQLite() {
   }, [user]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <input
+    <Group justify="center">
+      <Group w={"100%"} p={20} pb={0}>
+        <TextInput
+          label="Name"
           className="border-2 rounded-md"
           type="text"
           name="user"
           id="user"
           value={user}
           onChange={(e) => setUser(e.target.value)}
+          w={"100%"}
+          maw={400}
         />
+      </Group>
 
-        <button className="border-2 px-4 rounded-md" onClick={() => addUser()}>
+      <Group w={"100%"} maw={400} p={20} pt={0}>
+        <Button w={"100%"} variant="outline" onClick={() => addUser()}>
           Add
-        </button>
+        </Button>
+      </Group>
 
-        <br />
-
-        <pre>{JSON.stringify(data, null, 2)}</pre>
-      </div>
-    </main>
+      <Group justify="center" p={20} w={"100%"}>
+        <Card shadow="sm" p="md" withBorder w={"100%"} h={"100%"} radius={"md"}>
+          <pre>{JSON.stringify(data, null, 2)}</pre>
+        </Card>
+      </Group>
+    </Group>
   );
 }

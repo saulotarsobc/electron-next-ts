@@ -1,13 +1,12 @@
+import Layout from "@/components/Layout/Layout";
 import { theme } from "@/theme";
 import { MantineProvider } from "@mantine/core";
 import "@mantine/core/styles.css";
+import { ModalsProvider } from "@mantine/modals";
+import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-
-import Layout from "@/components/Layout/Layout";
-import { ModalsProvider } from "@mantine/modals";
-import { Notifications } from "@mantine/notifications";
 import { description, displayName, version } from "../../package.json";
 const pageTitle = `${displayName} - v${version}`;
 
