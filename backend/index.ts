@@ -1,12 +1,12 @@
 import { app, BrowserWindow } from "electron/main";
 import path, { join } from "node:path";
 
-import { isDev } from "./utils/env";
-import { prepareNext } from "./utils/prepareNext";
-import { initLogs } from "./utils/initLogs";
-import { addUser, initDb } from "./database";
 import { ipcMain } from "electron";
+import { addUser, initDb } from "./database";
 import { User } from "./database/schema";
+import { isDev } from "./utils/env";
+import { initLogs } from "./utils/initLogs";
+import { prepareNext } from "./utils/prepareNext";
 
 /**
  * Creates a new BrowserWindow with the specified dimensions and web preferences.

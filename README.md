@@ -11,6 +11,8 @@
    <img alt="Stars" src="https://img.shields.io/github/stars/saulotarsobc/electronjs-with-nextjs.svg">
 </div>
 
+![demo](/video/demo.mp4)
+
 ---
 
 ## Use
