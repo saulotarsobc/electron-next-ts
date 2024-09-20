@@ -3,7 +3,7 @@ import { Group, Title } from "@mantine/core";
 export default function Home() {
   return (
     <Group>
-      <Title>Home Page</Title>
+      <Title>Page 3</Title>
     </Group>
   );
 }

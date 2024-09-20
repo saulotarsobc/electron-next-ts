@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import { useCallback, useState } from "react";
 
 export default function SQLite() {
@@ -18,10 +17,6 @@ export default function SQLite() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div>
-        <Header />
-      </div>
-
       <div>
         <input
           className="border-2 rounded-md"

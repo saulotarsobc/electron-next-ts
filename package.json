@@ -1,6 +1,7 @@
 {
   "name": "sc-next-electron",
-  "version": "6.0.1",
+  "displayName": "Electronjs with Nextjs",
+  "version": "7.0.0",
   "description": "Electronjs with Nextjs",
   "private": false,
   "license": "MIT",
@@ -20,6 +21,11 @@
     "dist": "npm run build && electron-builder"
   },
   "dependencies": {
+    "@mantine/core": "^7.12.2",
+    "@mantine/hooks": "^7.12.2",
+    "@mantine/modals": "^7.12.2",
+    "@mantine/notifications": "^7.12.2",
+    "@tabler/icons-react": "^3.17.0",
     "app-root-path": "^3.1.0",
     "better-sqlite3": "^11.3.0",
     "electron-log": "^5.1.5"
@@ -29,16 +35,15 @@
     "@types/node": "^22.5.5",
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
-    "autoprefixer": "^10.4.20",
     "electron": "^30.5.1",
     "electron-builder": "^25.0.5",
     "next": "^14.2.12",
     "postcss": "^8.4.47",
+    "postcss-preset-mantine": "^1.17.0",
+    "postcss-simple-vars": "^7.0.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "rimraf": "^5.0.7",
-    "sass": "^1.79.1",
-    "tailwindcss": "^3.4.12",
     "typescript": "^5.6.2"
   }
 }
