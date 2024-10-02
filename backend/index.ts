@@ -1,9 +1,8 @@
-import { app, BrowserWindow } from "electron/main";
-import path, { join } from "node:path";
-
 import { ipcMain } from "electron";
-import { addUser, initDb } from "./database";
-import { User } from "./database/schema";
+import { app, BrowserWindow } from "electron/main";
+import { join } from "node:path";
+import { Model } from "sequelize";
+import { sequelize, User } from "./database";
 import { isDev } from "./utils/env";
 import { initLogs } from "./utils/initLogs";
 import { prepareNext } from "./utils/prepareNext";
@@ -22,7 +21,7 @@ function createWindow(): void {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      preload: path.join(__dirname, "preload.js"),
+      preload: join(__dirname, "preload.js"),
     },
   });
 
@@ -38,29 +37,39 @@ app.whenReady().then(async () => {
   await prepareNext("./frontend", 4444);
 
   await initLogs();
-  initDb();
+
+  await sequelize
+    .sync({
+      logging: true,
+      alter: true,
+
+      // this is used for development.
+      // If you want to reset the database, set this to true and run the script again.
+      // Otherwise, set it to false.
+      force: false,
+    })
+    .then(() => {
+      console.log("Database synced");
+    });
 
   createWindow();
+
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
+    if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
 });
 
 app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-  }
+  if (process.platform !== "darwin") app.quit();
 });
 
 /* ++++++++++ code ++++++++++ */
-ipcMain.on("addUser", (event, user: User) => {
-  addUser(user)
-    .then((data) => {
+ipcMain.on("addUser", async (event, data: any) => {
+  await User.create(data)
+    .then((data: Model) => {
       event.returnValue = {
         error: false,
-        data,
+        data: data,
       };
     })
     .catch((error) => {
