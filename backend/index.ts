@@ -69,7 +69,7 @@ ipcMain.on("addUser", async (event, data: any) => {
     .then((data: Model) => {
       event.returnValue = {
         error: false,
-        data: data,
+        data: data.dataValues,
       };
     })
     .catch((error) => {
