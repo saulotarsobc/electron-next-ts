@@ -25,28 +25,33 @@ function createWindow(): void {
     },
   });
 
-  isDev
-    ? win.loadURL("http://localhost:4444/")
-    : win.loadFile(join(__dirname, "..", "frontend", "out", "index.html"));
-
-  isDev && win.webContents.openDevTools();
-  isDev && win.maximize();
+  if (isDev) {
+    win.maximize(); // Maximize the window in development mode
+    win.webContents.openDevTools(); // Open the DevTools in development mode
+    win.loadURL("http://localhost:4444/"); // Load the local development server URL
+  } else {
+    win.setMenu(null); // Remove the menu in production mode
+    win.loadFile(join(__dirname, "..", "frontend", "out", "index.html")); // Load the index.html of the app
+  }
 }
 
 app.whenReady().then(async () => {
-  await prepareNext("./frontend", 4444);
-  initLogs();
-  createWindow();
+  await prepareNext("./frontend", 4444); // Prepare the Next.js frontend
+  initLogs(); // Initialize the logs
+  createWindow(); // Create the main window
 
+  // Create the database connection
   app.on(
     "activate",
     async () => BrowserWindow.getAllWindows().length === 0 && createWindow()
   );
 });
 
+// Quit when all windows are closed, except on macOS
 app.on("window-all-closed", () => process.platform !== "darwin" && app.quit());
 
 /* ++++++++++ code ++++++++++ */
+// Add a new user
 ipcMain.on("addUser", async (event, data: any) => {
   const user = new User();
 

@@ -9,7 +9,7 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 
 const [pageTitle, description] = [
-  `Electronjs with Nextjs - v7`,
+  `Electronjs with Nextjs - v8.0.1`,
   "Electronjs with Nextjs Description",
 ];
 

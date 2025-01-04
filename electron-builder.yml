@@ -1,5 +1,6 @@
 productName: SC - Next Electron
 appId: br.com.electron.next
+asar: true
 
 icon: public/icon.png
 
@@ -11,23 +12,23 @@ nsis:
   allowToChangeInstallationDirectory: true
 
 files:
-- dist
-- frontend/out
+  - dist
+  - frontend/out
 
 directories:
   output: out
 
 publish:
-- provider: github
+  - provider: github
 
 # Windows
 win:
   target:
-  - nsis
-  asar:
+    - nsis
   icon: ./public/icon.png
-  publisherName: Saulo INC
-  artifactName: ${productName}-Setup-${version}.${ext}
+  artifactName: ${productName}-${version}-${os}-${arch}.${ext}
+  signtoolOptions:
+    publisherName: Saulo INC
 
 # Mac
 mac:
@@ -37,6 +38,6 @@ mac:
 # Linux
 linux:
   target:
-  - AppImage
-  - deb
+    - AppImage
+    - deb
   icon: ./public/icon.png
